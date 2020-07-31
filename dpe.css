@@ -1,0 +1,346 @@
+.reveal .slide-number {
+    font-size: 24px !important;
+}
+
+.reveal .progress {
+    height: 8px !important;
+}
+
+.globesmall {
+    width: 400px;
+    height: 400px;
+}
+
+.globepart {
+    width: 400px;
+    height: 400px;
+    -webkit-clip-path: polygon(0 0, 0 400px, 200px 400px, 200px 200px, 400px 200px, 400px 0);
+}
+
+.kin {
+	border: 4px solid #ea7e0cff;
+	background: #f7af63ff;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	height:100px;
+	padding:20px;
+}
+
+.kin1 {
+	border: 4px solid #ea7e0cff;
+	background: #f7af63ff;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	height:50px;
+	padding:20px;
+}
+
+.kanon {
+	border: 4px solid #c0b964ff;
+	background: #ddd9abff;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	height:100px;
+	padding:20px;
+}
+
+.kanon1 {
+	border: 4px solid #c0b964ff;
+	background: #ddd9abff;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	height:120px;
+	width:25%;
+	padding:20px;
+}
+
+.kanon2 {
+	border: 4px solid #c0b964ff;
+	background: #ddd9abff;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	height:60px;
+	width:15%;
+	padding:20px;
+}
+
+.kanon21 {
+	border: 4px solid #c0b964ff;
+	background: #ddd9abff;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	height:60px;
+	width:15%;
+	padding:20px;
+}
+
+.kanon22 {
+	border: 4px solid #c0b964ff;
+	background: #ddeeabff;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	height:60px;
+	width:15%;
+	padding:20px;
+}
+
+.kanon23 {
+	border: 4px solid #c0b964ff;
+	background: #fff9abff;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	height:60px;
+	width:15%;
+	padding:20px;
+}
+
+.kanon31 {
+	border: 4px solid #c0b964ff;
+	background: #ddd9abff;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	height:50px;
+	width:10%;
+	padding:20px;
+}
+
+.kanon32 {
+	border: 4px solid #c0b964ff;
+	background: #ddeeabff;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	height:50px;
+	width:10%;
+	padding:20px;
+}
+
+.kanon33 {
+	border: 4px solid #c0b964ff;
+	background: #fff9abff;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	height:50px;
+	width:10%;
+	padding:20px;
+}
+
+.container1 {
+	display: inline-block;
+}
+
+.kout {
+	border: 4px solid #9dddc8ff;
+	background: #e8f6f2ff;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	height:100px;
+	padding:20px;
+}
+
+.kout1 {
+	border: 4px solid #9dddc8ff;
+	background: #e8f6f2ff;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	height:50px;
+	padding:20px;
+}
+
+.klog1 {
+	background: #4ab8a1ff;
+	width: 210px;
+	border-radius: 50px;
+	-moz-border-radius: 50px;
+	display: inline-block;
+}
+
+.klog2 {
+	background: #c2d5d8ff;
+	width: 210px;
+	border-radius: 50px;
+	-moz-border-radius: 50px;
+	display: inline-block;
+}
+
+.klog3 {
+	background: #b2e3ffff;
+	width: 210px;
+	border-radius: 50px;
+	-moz-border-radius: 50px;
+	display: inline-block;
+}
+
+.klog4 {
+	background: #e16b5aff;
+	width: 210px;
+	border-radius: 50px;
+	-moz-border-radius: 50px;
+	display: inline-block;
+}
+
+.oklog1 {
+	background: #ccccccff;
+	width: 210px;
+	border-radius: 50px;
+	-moz-border-radius: 50px;
+	display: inline-block;
+}
+
+.oklog2 {
+	background: #ccccccff;
+	width: 210px;
+	border-radius: 50px;
+	-moz-border-radius: 50px;
+	display: inline-block;
+}
+
+.reveal section .kuser {
+	background: none;
+	border: 0;
+    	box-shadow: none;
+	margin:0px;
+	vertical-align: middle;
+	width: 100px;
+	display: inline-block;
+}
+
+.reveal section .kuser1 {
+	background: none;
+	border: 0;
+    	box-shadow: none;
+	margin:0px;
+	vertical-align: middle;
+	width: 50px;
+	display: inline-block;
+}
+
+.kquery1 {
+	background: #4ab8a1ff;
+	margin: 0px;
+	border-radius: 50px;
+	width: 100px;
+	height: 100px;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.kquery2 {
+	background: #c2d5d8ff;
+	margin: 0px;
+	border-radius: 50px;
+	width: 100px;
+	height: 100px;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.kquery3 {
+	background: #b2e3ffff;
+	margin: 0px;
+	border-radius: 50px;
+	width: 100px;
+	height: 100px;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.kquery4 {
+	background: #e16b5aff;
+	margin: 0px;
+	border-radius: 50px;
+	width: 100px;
+	height: 100px;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.kquery11 {
+	background: #4ab8a1ff;
+	margin: 0px;
+	border-radius: 25px;
+	width: 50px;
+	height: 50px;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 50%;
+}
+
+.kquery12 {
+	background: #c2d5d8ff;
+	margin: 0px;
+	border-radius: 50px;
+	width: 50px;
+	height: 50px;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 50%;
+}
+
+.kquery13 {
+	background: #b2e3ffff;
+	margin: 0px;
+	border-radius: 50px;
+	width: 50px;
+	height: 50px;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 50%;
+}
+
+.kquery14 {
+	background: #e16b5aff;
+	margin: 0px;
+	border-radius: 50px;
+	width: 50px;
+	height: 50px;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 50%;
+}
+
+.containerdesc {
+	font-size: 50%;
+	width: 100%;
+	position: relative;
+	top: 0;
+	left: 0;
+	flex: 1 1 100%;
+}
+
+@keyframes changeContent {
+	0% {color: #686868;content:"Surveillance cameras";}
+	5% {color: transparent;}
+	10% {color: #686868;content:"Medical data";}
+	15% {color: transparent;}
+	20% {color: #686868;content:"Digital TV/radio";}
+	25% {color: transparent;}
+	30% {color: #686868;content:"Videogames";}
+	35% {color: transparent;}
+	40% {color: #686868;content:"Mobile phones";}
+	45% {color: transparent;}
+	50% {color: #686868;content:"VoIP";}
+	55% {color: transparent;}
+	60% {color: #686868;content:"PCs";}
+	65% {color: transparent;}
+	70% {color: #686868;content:"Servers’ logs";}
+	75% {color: transparent;}
+	80% {color: #686868;content:"Embedded systems";}
+	85% {color: transparent;}
+	90% {color: #686868;content:"Automobiles";}
+	95% {color: transparent;}
+	100% {color: #686868;content:"Vending machines";}
+}
+
+.datasphere:after {
+    animation: changeContent 15s linear infinite alternate;
+    display: block;
+    content: "surveillance cameras";
+}

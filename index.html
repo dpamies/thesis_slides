@@ -1,0 +1,1868 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Thesis slides</title>
+		<meta name="description" content="A PhD thesis presentation.">
+		<meta name="author" content="David Pamies-Estrems">
+		<link rel="stylesheet" href="dpe.css">
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css"/>
+		<link rel="stylesheet" href="dist/theme/devrel.css" id="theme"/>
+		<link rel="stylesheet" href="dist/fontawesome/css/all.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="plugin/highlight/atom-one-dark.css" id="highlight-theme">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'dist/print/pdf.css' : 'dist/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+  <body>
+    <section id="tabzilla">
+      <a href="http://www.urv.cat/">URV</a>
+    </section>
+
+    <div class="reveal">
+      <div class="slides">
+
+<!-------------------------------------------------------------------------------->
+<!-- PORTADA                                                                    -->
+<!-------------------------------------------------------------------------------->
+
+      <section>
+        <section>
+          <header>
+	    <hr>
+            <h1>Contributions to Lifelogging Protection in Streaming Environments</h1>
+	    <hr>
+            <p>David P&agrave;mies-Estrems<p>
+	    <span style="color: #484848;">Advisors: </span>Dr. Jordi Castell&agrave;-Roca, Dr. Joaquin Garcia-Alfaro
+
+	    <div style="margin-top:1em;">
+	    <h4>PhD Thesis Defense</h4>
+	    <small>
+		Doctoral Programme in Computer Science and Mathematics of Security</br>
+		Departament d'Enginyeria Inform&agrave;tica i Matem&agrave;tiques</br>
+		Universitat Rovira i Virgili
+	    </small>	
+          </header>
+        </section>
+
+<!-------------------------------------------------------------------------------->
+<!-- INDEX                                                                      -->
+<!-------------------------------------------------------------------------------->
+
+        <section>
+          <ol>
+            <li><span>Introduction</span></li>
+            <li><span>State of the art</span></li>
+	    <li><span>Contributions</span>
+		<ul>
+			<li><span>Working at the WSE Side to Generate Privacy-Preserving User Profiles</span></li>
+			<li><span>A Real-Time Query Log Protection Method for WSEs</span></li>
+			<li><span>Lifelogging Protection Scheme for Internet-based Personal Assistants</span></li>
+		</ul>		
+	    </li>
+	    <li><span>Conclusions and Future Work</span></li>
+          </ol>
+        </section>
+<!-------------------------------------------------------------------------------->
+<!-- INTRODUCTION                                                               -->
+<!-------------------------------------------------------------------------------->
+          <section>
+            <h2>Introduction</h2>
+          </section>
+<!-------------------------------------------------------------------------------->
+
+	  <!--data-id="input"-->
+
+	  <section data-auto-animate>
+		<h3>Global Datasphere</h3>
+	    <div class="container">
+		<div class="col">
+		    <br>
+		    <div data-id="zb2018" style="display: inline-block;"><div style="display: inline-block; width:120px; height:75px; background-color:tomato;">33 ZB</div><br>2018</div>
+		    <div data-id="zb2025" style="display: inline-block;"><div style="display: inline-block; width:120px; height:394px; background-color:transparent;">&nbsp;</div><br>&nbsp;</div>
+		    &nbsp;<br>
+		</div>
+		<div class="colbig">
+		    <img data-id="globe" class="plain globesmall" src="img/intro/globe.svg"><br>
+		    <div class="datasphere"></div>
+		</div>
+	    </div>
+	    <aside class="notes">
+% El volum d'informació va creixent i en tenim molta
+
+The whole data created, captured, or replicated, is called the Global Datasphere. IDC  predicts that the Global Datasphere will grow at an annual rate of 61\%, from 33 Zettabytes (ZB) in 2018 to 175 ZB by 2025. In terms of population, more than five billion people generate some kind of data every day. By 2025, that number will be six billion, or 75\% of the world's population, and each connected person will have at least 5 000 daily digital interactions, in front of the current 800~\cite{IDC2018data}.
+
+Global Datasphere is composed of very varied data sources, such as surveillance cameras, medical data, digital TV/radio, video games, mobile phones, VoIP, PCs, servers’ logs, and embedded systems (in automobiles, vending machines, etc.). 
+	    </aside>
+	  </section>
+
+	  <section data-auto-animate>
+		<h3>Global Datasphere</h3>
+	    <div class="container">
+		<div class="col">
+		    <br>
+		    <div data-id="zb2018" style="display: inline-block;width:120px;"><div style="display: inline-block; width:120px; height:64px; margin-bottom: -21px; background-color:tomato;">33 ZB</div><div data-id="zb2018" style="display: inline-block; width:120px; height:11px; background-color:green;"></div>
+<br>2018</div>
+		    <div data-id="zb2025" style="display: inline-block;width:120px;"><div style="display: inline-block; width:120px; height:276px; background-color:tomato;">175 ZB</div><div data-id="zb2018" style="display: inline-block; width:120px; height:118px; background-color:green;"></div><br>2025</div>
+		    +61% annual<br>
+		    30% real-time
+		</div>
+		<div class="colbig">
+		    <img data-id="globe" class="plain globesmall" src="img/intro/globepart.svg"><br>
+		    <div class="datasphere"></div>
+		    > 5 000 daily interactions
+		</div>
+	    </div>
+	    <aside class="notes">
+% El volum d'informació va creixent i en tenim molta
+
+The whole data created, captured, or replicated, is called the Global Datasphere. IDC  predicts that the Global Datasphere will grow at an annual rate of 61\%, from 33 Zettabytes (ZB) in 2018 to 175 ZB by 2025. In terms of population, more than five billion people generate some kind of data every day. By 2025, that number will be six billion, or 75\% of the world's population, and each connected person will have at least 5 000 daily digital interactions, in front of the current 800~\cite{IDC2018data}.
+
+Global Datasphere is composed of very varied data sources, such as surveillance cameras, medical data, digital TV/radio, video games, mobile phones, VoIP, PCs, servers’ logs, and embedded systems (in automobiles, vending machines, etc.). 
+
+real-time data currently represents 15\% of the Global Datasphere, but predictions point that nearly 30\%
+	    </aside>
+	  </section>
+<!-------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------->
+          <section>
+            <h3>Textual Queries</h3>
+	    <div class="container">
+		<div class="colbig align-left">
+		    <p>
+			People use a Web Search Engine<br>
+			Or a Personal Assistant:
+		    </p>
+		    <ul>
+			<li><span>Few keywords</span></li>
+			<li><span>Fast results</span></li>
+		    </ul>		    	
+		</div>
+		<div class="col">
+		    <img class="plain" src="img/intro/search_engines.png"/>
+		</div>
+	    </div>
+		    <pre style="width:40%"><code data-id="querylogs" class="accesslog" data-trim>
+			thompson water seal
+		    </code></pre>
+		<br>
+	    <blockquote style="width:80%">Convenience + Growing data = High popularity</blockquote>
+	    <aside class="notes">
+% Els motors de cerca
+
+If we focus only on the Web, individuals usually interact with what is known as a Web Search Engine (WSE), a system that is designed to search the World Wide Web in a systematic way for particular information specified in a textual search query~\cite{WebSearchEngine}. These queries contain certain keywords related to the topics they are looking for. The WSE, then retrieves and presents an accurate list of responses that tackle those topics. Generally, people use these services mainly for one of these three reasons: information research, shopping, or entertainment.
+
+Popularity of these tools remain very high~\cite{tris2014client} since only sending a basic query allows people to find, with a minimal response time, what they are looking for. Therefore, it can be assumed that services such as the ones offered by Google or Bing will continue to be essential in the coming years.
+	    </aside>
+          </section>
+<!-------------------------------------------------------------------------------->
+          <section>
+	    <h3>Log structure</h3>
+		<p>
+			Service provider adds metadata<br>
+		</p>
+            <p>
+		<br>Each query log:<br>
+            <pre><code class="accesslog" data-trim>
+116874 thompson water seal   2006-05-24 11:31:36 1 http://www.thompsonswaterseal.com
+              </code></pre>
+	      <table width="100%">
+		<tr>
+		    <td width="10%">
+			$\downarrow$
+			UserID
+		    </td>
+		    <td width="18%">
+			&nbsp;&nbsp;&nbsp;$\downarrow$<br>
+			Query
+		    </td>
+		    <td width="24%">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\downarrow$<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Time
+		    </td>
+		    <td width="48%">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\downarrow$<br>
+			Clicked URL
+		    </td>
+		</tr>
+	      </table>
+            </p>
+	    <aside class="notes">
+% Aquesta informació és valuosa i ens pot ajudar
+
+Apart from the information retrieval process needed to fulfill the user's query, the service also starts a data gathering process that stores the submitted query (i.e., the keywords) and some metadata e.g. date of the query, some identifiers of the query issuer (user id), which specific search result was selected by the issuer (if applies), and other user related information~\cite{petroulakis2012life,sarconi2017ok}. Additionally, queries made on most modern devices often send the user location and the local time as two additional parameters when it comes to find the most convenient information in each situation. Therefore, user, location, and local time are also registered in the company servers. This information is usually registered in the form of a log, and all the logs are usually stored in a file or database, which contains all the previously recorded logs, and is generally referred to as \emph{query logs}~\cite{Chau05}. Over time, the \emph{query logs} gathering process, produces a huge data repository of information about our everyday lives, which can be called \emph{lifelogging}~\cite{wang2013using}. 
+	    </aside>
+          </section>
+<!-------------------------------------------------------------------------------->
+          <section data-auto-animate>
+	    <h3>Query logs</h3>
+            <p>
+		Queries may contain sensitive information
+		<small>Medical, religious, sexual, political...</small>
+            </p>
+            <pre><code data-id="querylogs" class="accesslog" data-trim data-line-numbers="|6-15|8-11">
+116874 thompson water seal   2006-05-24 11:31:36 1 http://www.thompsonswaterseal.com
+116874 express-scripts	     2006-05-30 07:56:03 1 http://www.express-scripts.com
+116874 express-scripts	     2006-05-30 07:56:03 2 http://member.express-scripts.com
+116874 knbt	             2006-05-31 07:57:28
+116874 knbt.com	             2006-05-31 08:09:30 1 http://www.knbt.com
+117020 naughty thoughts	     2006-03-01 08:33:07 2 http://www.naughtythoughts.com
+117020 really eighteen	     2006-03-01 15:49:55 2 http://www.reallyeighteen.com
+117020 texas penal code	     2006-03-03 17:57:38 1 http://www.capitol.state.tx.us
+117020 hooks texas           2006-03-08 09:47:08
+117020 homicide hooks texas  2006-03-08 09:47:35
+117020 homicide bowie county 2006-03-08 09:48:25 6 http://www.tdcj.state.tx.us
+117020 texarkana gazette     2006-03-08 09:50:20 1 http://www.texarkanagazette.com
+117020 tdcj	             2006-03-08	09:52:36 1 http://www.tdcj.state.tx.us
+117020 naughty thoughts      2006-03-11 00:04:40 1 http://www.naughtythoughts.com
+117020 cupid.com             2006-03-11	00:08:50
+              </code></pre>
+	    <aside class="notes">
+	    </aside>
+          </section>
+<!-------------------------------------------------------------------------------->
+          <section data-auto-animate>
+	    <h3>Record Linkage</h3>
+            <pre><code data-id="querylogs" class="accesslog" data-trim>
+117020 hooks texas           2006-03-08 09:47:08
+117020 homicide hooks texas  2006-03-08 09:47:35
+117020 homicide bowie county 2006-03-08 09:48:25 6 http://www.tdcj.state.tx.us
+              </code></pre>
+		$\downarrow$<br>
+	    <img class="" width="70%" src="/img/intro/map.png">
+	    <p>
+		Identifiers + Quasi-identifiers = <strong>Identity</strong><br>
+		Modifications do not guarantee protection
+	    </p>
+	    <aside class="notes">
+% Tenir-ho acumulat, suposa un RISC
+In addition to those benefits, building and exploiting query logs may lead to serious privacy problems as well, since this process enables these organizations to compile a lot of data about individuals. Each query logged contains a user identifier, a text about what the user is looking for, the time when it was done, the results selected by the user, and in some cases, the user’s location.
+
+The keywords of each query and the related metadata may provide sensitive information from the user such as behaviors, habits, interests, religious views, sexual orientation, etc. to anyone who has access to the logs and therefore to third parties. Even more, some query keywords may contain identifiers and quasi-identifiers~\cite{willenborg2012elements}, which may allow to link queries with real people. This is specially feasible, given current tendencies such as \emph{vanity search} and \emph{egosurfing}~\cite{Soghoian07}, in which people look for their own names over the Internet.
+	    </aside>
+          </section>
+<!-------------------------------------------------------------------------------->
+	  <section>
+		<h3>Lifelogging</h3>
+		Personal Assistants<br>
+		<small>SmartPhones, SmartGateways, SmartWatches, Activity Bands</small><br>
+		<img class="" src="img/intro/lifelog.jpg">
+		Continuous record of one's daily  activities<br>
+	    <aside class="notes">
+% O els assistents personals
+
+In the past, people have only used Web Search Engines as the main gateway to the Internet, but as time goes by, we can find more alternatives. The new proposals are trying to reduce the barriers to access information even more and to make it accessible to everyone, anytime. As a consequence of these innovations, today we can find a multitude of technological tools that have been developed precisely for this reason: smartphones, smartgateways, smartwatches and activity bands. As a whole, we will refer to these devices as Personal Assistants. For reasons of economies of scale,  the development of this type of device is only available to a few technological organizations~\cite{grimes2009weathering,varian2001economics}. These tools allow the \emph{lifelogging} process to be even more exhaustive. 
+	    </aside>
+	  </section>
+<!-------------------------------------------------------------------------------->
+          <section>
+            <h3>Users' profiles</h3>
+			Weighted set of interests <br>
+			<small>science, health, society, sports, etc.</small>
+	    <div class="container">
+		<div class="col align-left">
+		    <p>
+			Used for:
+		    </p>
+		    <ul>
+			<li><span>Personalization</span></li>
+			<li><span>Usability</span></li>
+			<li><span>Marketing</span></li>
+			<li><span>Research</span></li>
+		    </ul><br>
+		</div>
+		<div class="col">
+		    <img class="plain" width="60%" src="img/intro/profile.png"/>		
+		</div>
+	    </div>
+	    <aside class="notes">
+Furthermore, the data about individuals, groups, and periods of time could be combined into bigger groups over longer periods of time; what has been recently designated as \emph{Big Data}.
+
+Once the query logs are generated, they are processed and analyzed to build users’ profiles~\cite{nytSteel} which could be used to improve their services in several ways. In the literature, a user profile is generally considered a set of well-defined categories of interests (e.g. science, health, society, sports, etc.) with a certain weight assigned to each one according to the evidence generated by the corresponding user and how they have been classified under each category~\cite{Viejo12a}. When focusing on search services, search queries are the evidence, and the amount of queries from each user classified under each category reflects the related weight. 
+
+Users' profiles could be helpful in improving the service offered in the following ways:
+
+\begin{itemize}
+    \item \textbf{Personalization}. Query terms can have multiple meanings; therefore, identifying the sense required by the user represents a challenge. In order to better fulfill their needs, more relevant results should be placed in the first position of the returned results. By analyzing the queries submitted by users in the past, the service providers can gain knowledge about their preferences, and this knowledge can be used to contextualize and disambiguate terms in the future~\cite{shen_privacy_2007,1242652}. This way, if a user searches for ``Mercury'' and her profile indicates that she is interested in ``Astronomy'', the WSE can prioritize relevant results (e.g., URLs) that correspond to the planet Mercury in the initial positions of search results, instead of the chemical element.
+
+    \item \textbf{Usability}: By knowing the frequencies of most formulated queries and most selected results, online services are able to improve the ranking algorithms~\cite{Agichtein06}. This can also be used to suggest alternative queries~\cite{Jones06}. Such suggestions can show how to correct mistakes when typing, add specificity to the initial query, or provide similar queries with more results after retrieving poor results for the original query submission~\cite{Cooper08}. Continuing with the example of the term ``Mercury'', if a user inputs just this term, the service could suggest more specific alternative queries, such as ``Mercury - Planet'', ``Mercury - Element'', ``mercury poisoning'', and ``mercury marine'', among others. These alternative keywords are expected to retrieve more accurate results for the user.
+    
+\end{itemize}
+
+% Tot això val pasta
+
+However, query logs can also be exploited for other purposes because they reveal powerful insights about customer intent-to-purchase and other factors~\cite{mckinsey2014}. This new exploitation can be conducted by the service provider itself or by a third party, for the following purposes:
+
+\begin{itemize}
+    \item \textbf{Marketing}: While characterizing general user profiles, user behavior, and user search habits, it is possible to improve keyword advertising campaigns and extract market tendencies among others. For example, the user can be characterized by their query logs (gender, age, income, education, etc.) and afterwards verify if the advertisements have had an impact on the intended audience (interests and behaviour)~\cite{brenes2009stratified,Poblete07}. Besides this, it is possible to extract market tendencies~\cite{Korolova09}. More concretely, search analytics is one of the cornerstones of so-called \emph{Search Engine Marketing} and it is in charge of using search data to investigate particular interactions among searchers, the search engine, or content during searching episodes~\cite{Jansen06}. For example, Google Trends\footnote{Google Trends. \tt{https://www.google.com/trends/}} is a service that exploits this kind of data. In particular, Google Trends shows how often a particular term is searched according to the total search volume across various regions of the world.
+
+    \item \textbf{Research}: As stated in~\cite{Richardson08}, query logs contain information that would never be available to researchers using conventional data collection techniques. For example, a medical researcher might discover that people with asthma tend to wear wool or live in areas with coal power plants; a sociologist may study how ideas spread from one person to an entire community, or may investigate the differences between the interests that individuals claim to have during face-to-face interviews and the real interests that their search queries reveal~\cite{tancer08}; a political scientist might learn about democracy by studying the evolution of political searches by users in a developing country. Query logs also enable researchers to ask questions that would normally require going backward in time. For example, a medical researcher might study people diagnosed with diabetes today to find out what their primary symptoms were six months ago. Asking them directly, once they learn they have diabetes, may result in subjective bias~\cite{Richardson08}. Last but not least, a computer scientist may study and analyze new Information Retrieval (IR) algorithms via a common benchmark query log~\cite{logResearchers}. It may also be used to learn about users information needs and query formulation approaches~\cite{Korolova09} and revolve around the use of language in queries~\cite{journalsElearnShea10}, among other research topics~\cite{Adar07,Beitzel04,temporallyLargeCategorized,microaggregationLog,silvestri}.
+
+\end{itemize}
+	    </aside>
+          </section>
+<!-------------------------------------------------------------------------------->
+	  <section>
+		<h3>Monetization</h3>
+		Selling data $\rightarrow$ Economic viability<br> 
+		May expose sensitive information<br><br>
+
+	        <div class="container">
+		    <div class="col">
+			<b>US Privacy Act</b><br>
+			<img class="plain" width="40%" src="img/intro/privacy_act.svg">
+		    </div>
+		    <div class="col">
+	   		<b>EU GDPR</b><br>
+			<img class="plain" width="40%" src="img/intro/gdpr.svg">
+		    </div>
+		</div>
+		<blockquote>
+		    <b>Protect users’ data, allowing useful profiles.</b>
+		</blockquote>
+	    <aside class="notes">
+Turning this data into knowledge is a key interest for many companies, since the extraction of valuable information is what enables those companies to obtain economic benefits. This process is known as \emph{data monetization}~\cite{Saagar14}. A classic example of data monetization can be found in the supermarket group Tesco~\cite{dataMonetization}, which uses a data ecosystem to monetize data from its loyalty program, the Tesco ClubCard. In return for opting in to ClubCard, customers receive personalized offers. The same knowledge could be extracted from the queries against Internet services, making that information valuable.
+
+		Monetization is achieved by selling data to third parties, however query logs could potentially expose sensitive user information: identifiers, sensitive data from users (such as diseases, sexual tendencies, religious beliefs) or be used for what is called "life-logging": a continuous record of one's daily  activities. Current regulations oblige companies to protect this personal  information. Protection systems for closed data sets have previously been proposed, most of them working with atomic files or structured data. Unfortunately, those systems do not fit when used in the growing real-time unstructured data environment posed by Internet services.
+
+Someone might think that if it is too dangerous to save these logs, a possible solution would be to not store any of them. However, as we have seen, the service they offer is essential in order to allow people to find information on the Internet, and the economic viability of the companies that offer this service is closely linked to the data monetization process. Therefore, they will continue keeping the data.
+
+The current practice was recently put in the spotlight by the U.S. Federal Trade Commission when it published a report about data collection and use practices of the most relevant Data Brokers~\cite{TradeCom14}. The widespread development of technologies such as \emph{Data Mining} and \emph{Artificial Intelligence} over \emph{Big Data}, make the task of extracting information, knowledge, or relevant relationships easier every day~\cite{danezis2015privacy}. This can lead to very serious privacy risks of personal data disclosure, as this data can be exploded not only in isolation, but also as a combination of information generated between several sources. 
+
+Anyone who uses these services is constantly disclosing, in a direct or indirect way, personal data to the organization which provides the service. Using Personal Assistants, the situation is even more accentuated, since the user is not in front of a computer. Users tend to establish more relaxed relationships with the device, sometimes without even knowing if it is working or sending information to another site, and mostly seeing it as a friend or an extension of its person.
+% I a nosaltres ens preocuparà la privadesa
+
+Therefore there is a strong need to protect sensible users’ data, while allowing the resulting data to remain useful for companies that offer the service. 
+
+To protect the privacy of individuals, several measures were established by lawmakers, from the USA Privacy Act of $1974$~\cite{privact}, until the recent General Data Protection Regulation (GDPR), adopted by the European Union in $2016$~\cite{gdpr}. Specifically in this last case, all entities that perform personal data processing related to European citizens, must be able to demonstrate at any time that they are complying with the regulations established by the GDPR.
+
+Although query logs could be protected prior to their publication, there is no absolute guarantee of anonymity. To protect the user's identity and sensitive data, there exist some techniques that are able to eliminate direct user identifiers. However, a specialized type of attack, called Record Linkage attack, allows the linking of different user records, which contain seemingly harmless information, but when all the data can be related to, it can end up revealing sensitive information from the users~\cite{jones2007,Poblete07}. As an example, there is one well-known case, the AOL Research scandal, in which around 36 million queries performed by AOL's customers were publicly disclosed. Although records were previously de-identified, it was possible to identify some users from the disclosed query logs and other sensitive information was exposed~\cite{Barbaro06}. The case ended up with an important damage to AOL users’ privacy and to AOL itself, with several class action law suits and complaints against the company~\cite{aolLeak,Mills06,nytCourt}.
+	    </aside>
+	  </section>
+<!-------------------------------------------------------------------------------->
+        </section>
+
+<!-------------------------------------------------------------------------------->
+<!-- STATE OF THE ART                                                           -->
+<!-------------------------------------------------------------------------------->
+        <section>
+          <section>
+            <h2>State of the Art</h2>
+          </section>
+<!-------------------------------------------------------------------------------->
+          <section data-auto-animate>
+	    <h3>Privacy Enhancing Technologies</h3>
+		<table>
+		    <tr><th></th><th></th></tr>
+		    <tr>
+			<td style="vertical-align: middle;"><b><span>Server side</span></b></td>
+			<td>
+				<ul>
+				  <li><span>Fixed-length input</span></li>
+				  <li><span>Data-stream input</span></li>
+				</ul>
+			</td>
+		    <tr>
+		    <tr>
+			<td style="vertical-align: middle;"><b>Collaborative</b></td>
+			<td>
+				<ul>
+				  <li><span>Private Information Retrieval</span></li>
+				  <li><span>Platform for Privacy Preferences (P3P)</span></li>
+				  <li><span>Context-based Retrieval</span></li>
+				</ul>
+			</td>
+		    <tr>
+		    <tr>
+			<td style="vertical-align: middle;"><b>Client side</b></td>
+			<td>
+				<ul>
+				  <li><span>Obfuscation Techniques</span></li>
+				  <li><span>Anonymous Channels</span></li>
+				</ul>
+			</td>
+		    <tr>
+		</table>
+
+	    <aside class="notes">
+	    </aside>
+          </section>
+
+<!-------------------------------------------------------------------------------->
+          <section data-auto-animate>
+	    <h3>Privacy Enhancing Technologies</h3>
+		<table>
+		    <tr>
+			<td colspan="2" style="text-align:center;"><span data-id="pet-ss"><b>Server side</b></span></td>
+		    <tr>
+		    <tr>
+			<td style="text-align:center; vertical-align: middle;"><img data-id="pet-fli" class="plain" style="width:100px;vertical-align: middle;" src="img/state/batch.svg"><b><span data-id="pet-fl">&nbsp;&nbsp;Fixed-length</span></b></td>
+			<td style="text-align:center; vertical-align: middle;"><b><span data-id="pet-ds">Data-stream</span></b>&nbsp;&nbsp;<img data-id="pet-dsi" class="plain" style="width:100px;vertical-align: middle;" src="img/state/stream.svg"></td>
+		    <tr>
+		    <tr>
+			<td>
+				<ul>
+				  <li><span>Delayed treatment</span></li>
+				  <li><span>Finite & static data</span></li>
+				  <li><span>Could be unstructured</span></li>
+				</ul>
+			</td>
+			<td>
+				<ul>
+				  <li><span>Immediate treatment</span></li>
+				  <li><span>Infinite volumes</span></li>
+				  <li><span>Numeric & structured data</span></li>
+				</ul>
+			</td>
+		    <tr>
+		</table>
+	    <aside class="notes">
+	    </aside>
+          </section>
+
+<!-------------------------------------------------------------------------------->
+          <section data-auto-animate>
+	    <h3>Privacy Enhancing Technologies</h3>
+		<table>
+		    <tr>
+			<td colspan="2" style="text-align:center;"><span data-id="pet-ss"><b>Server side</b></span></td>
+		    <tr>
+		    <tr>
+			<td style="text-align:center; vertical-align: middle;"><img data-id="pet-fli" class="plain" style="width:100px;vertical-align: middle;" src="img/state/batch.svg"><b><span data-id="pet-fl">&nbsp;&nbsp;Fixed-length</span></b></td>
+			<td style="text-align:center; vertical-align: middle;"><b><span data-id="pet-ds">Data-stream</span></b>&nbsp;&nbsp;<img data-id="pet-dsi" class="plain" style="width:100px;vertical-align: middle;" src="img/state/stream.svg"></td>
+		    <tr>
+		    <tr>
+			<td>
+				<ul>
+				  <li><span>Delayed treatment</span></li>
+				  <li><span>Finite & static data</span></li>
+				  <li><span><b>Could be unstructured</b></span></li>
+				</ul>
+			</td>
+			<td>
+				<ul>
+				  <li><span><b>Immediate treatment</b></span></li>
+				  <li><span><b>Infinite volumes</b></span></li>
+				  <li><span>Numeric & structured data</span></li>
+				</ul>
+			</td>
+		    <tr>
+		</table>
+		<blockquote>
+			Protect unstructured data on real-time, retaining data utility.
+	    	</blockquote>
+	    <aside class="notes">
+		To protect the user's identity and sensitive data, there exist some techniques that are able to eliminate direct user identifiers.
+
+		Protection systems for closed data sets have previously been proposed, most of them working with atomic files or structured data. Unfortunately, those systems do not fit when used in the growing real-time unstructured data environment posed by Internet services.
+
+		Data protection schemes have traditionally been constructed from a static point of view
+		Closed data set taken and protected in isolation. 
+
+		Interactions made by a user, increase frequently -> real-time data stream. 
+
+		Real-time data currently represents 15\% of the Global Datasphere, 
+		Predicted 30% by 2025. 
+		We need to propose a streaming protection scheme. 
+
+		Propose: a server-side, real time, query anonymizer, retain data utility to allow monetization.
+	    </aside>
+          </section>
+
+<!-------------------------------------------------------------------------------->
+          <section>
+            <h3>Probabilistic \(k\)-anonymity</h3>
+	    <ul>
+		<li><span>Without modifying logs</span></li>
+		<li><span>A log indistinguishable from \(\geq k-1\) other logs</span></li>
+		<li><span>Re-identification probability \(\lt 1/k\)</span></li>
+	    </ul>
+	    <img class="plain" width="60%" src="img/state/kdice.png" />
+	    <aside class="notes">
+		Anonymization Process
+		The goal of probabilistic $k$-anonymity is to limit the probability of performing the right re-identification to at most $\frac{1}{k}$ 
+		for all $u_i \in R$ and for all the values of $Re(r'_j)$:
+		\begin{align}
+		\label{eq:upperB}
+		    P(Re(r'_j)=Id(r'_j)) \leq {\frac{1}{k}}
+		\end{align}
+
+
+		The stream of logs $R'$ is said to satisfy probabilistic $k$-anonymity if, by knowing $R'$ and the anonymization process, 
+		the probability to link any record $r'_j \in R'$ and its corresponding record $r_j \in R$ is, at most, ${\frac{1}{k}}$. 
+	    </aside>
+          </section>
+
+<!-------------------------------------------------------------------------------->
+
+	<section data-auto-animate>
+	  <h3>Probabilistic $k$-anonymity: $k=3$</h3>
+	  <div data-id="input" class="kin">
+		<div class="klog1" data-id="klog1"><img class="kuser" data-id="kimg1" src="img/state/asistante.svg"><div class="kquery1" data-id="kquery1">Mask</div></div>
+		<div class="klog2" data-id="klog2"><img class="kuser" data-id="kimg2" src="img/state/chef.svg"><div class="kquery2" data-id="kquery2">Cake</div></div>
+		<div class="klog3" data-id="klog3"><img class="kuser" data-id="kimg3" src="img/state/police-women.svg"><div class="kquery3" data-id="kquery3">Thief</div></div>
+		<div class="klog4" data-id="klog4"><img class="kuser" data-id="kimg4" src="img/state/doctor.svg"><div class="kquery4" data-id="kquery4">Book</div></div>
+	  </div>
+	  $\downarrow$
+	  <div data-id="mix" class="kanon container">
+		<div class="col"></div>
+		<div class="col"></div>
+	  </div>
+	  $\downarrow$
+	  <div data-id="output" class="kout">
+	  </div>
+	</section>
+
+	<section data-auto-animate>
+	  <h3>Probabilistic $k$-anonymity: $k=3$</h3>
+	  <div data-id="input" class="kin">
+		<div class="klog1" data-id="klog1"></div>
+		<div class="klog2" data-id="klog2"><img class="kuser" data-id="kimg2" src="img/state/chef.svg"><div class="kquery2" data-id="kquery2">Cake</div></div>
+		<div class="klog3" data-id="klog3"><img class="kuser" data-id="kimg3" src="img/state/police-women.svg"><div class="kquery3" data-id="kquery3">Thief</div></div>
+		<div class="klog4" data-id="klog4"><img class="kuser" data-id="kimg4" src="img/state/doctor.svg"><div class="kquery4" data-id="kquery4">Book</div></div>
+	  </div>
+	  $\downarrow$
+	  <div data-id="mix" class="kanon container">
+		<div class="col"><img class="kuser" data-id="kimg1" src="img/state/asistante.svg"></div>
+		<div class="col"><div class="kquery1" data-id="kquery1">Mask</div></div>
+	  </div>
+	  $\downarrow$
+	  <div data-id="output" class="kout">
+	  </div>
+	</section>
+
+	<section data-auto-animate>
+	  <h3>Probabilistic $k$-anonymity: $k=3$</h3>
+	  <div data-id="input" class="kin">
+		<div class="klog1" data-id="klog1"></div>
+		<div class="klog2" data-id="klog2"></div>
+		<div class="klog3" data-id="klog3"><img class="kuser" data-id="kimg3" src="img/state/police-women.svg"><div class="kquery3" data-id="kquery3">Thief</div></div>
+		<div class="klog4" data-id="klog4"><img class="kuser" data-id="kimg4" src="img/state/doctor.svg"><div class="kquery4" data-id="kquery4">Book</div></div>
+	  </div>
+	  $\downarrow$
+	  <div data-id="mix" class="kanon container">
+		<div class="col">
+			<img class="kuser" data-id="kimg1" src="img/state/asistante.svg">
+			<img class="kuser" data-id="kimg2" src="img/state/chef.svg">
+		</div>
+		<div class="col">
+			<div class="kquery1" data-id="kquery1">Mask</div>
+			<div class="kquery2" data-id="kquery2">Cake</div>
+		</div>
+	  </div>
+	  $\downarrow$
+	  <div data-id="output" class="kout">
+	  </div>
+	</section>
+
+	<section data-auto-animate>
+	  <h3>Probabilistic $k$-anonymity: $k=3$</h3>
+	  <div data-id="input" class="kin">
+		<div class="klog1" data-id="klog1"></div>
+		<div class="klog2" data-id="klog2"></div>
+		<div class="klog3" data-id="klog3"></div>
+		<div class="klog4" data-id="klog4"><img class="kuser" data-id="kimg4" src="img/state/doctor.svg"><div class="kquery4" data-id="kquery4">Book</div></div>
+	  </div>
+	  $\downarrow$
+	  <div data-id="mix" class="kanon container">
+		<div class="col">
+			<img class="kuser" data-id="kimg1" src="img/state/asistante.svg">
+			<img class="kuser" data-id="kimg2" src="img/state/chef.svg">
+			<img class="kuser" data-id="kimg3" src="img/state/police-women.svg">
+		</div>
+		<div class="col">
+			<div class="kquery1" data-id="kquery1">Mask</div>
+			<div class="kquery2" data-id="kquery2">Cake</div>
+			<div class="kquery3" data-id="kquery3">Thief</div>
+		</div>
+	  </div>
+	  $\downarrow$
+	  <div data-id="output" class="kout">
+	  </div>
+	</section>
+
+	<section data-auto-animate>
+	  <h3>Probabilistic $k$-anonymity: $k=3$</h3>
+	  <div data-id="input" class="kin">
+		<div class="klog1" data-id="klog1"></div>
+		<div class="klog2" data-id="klog2"></div>
+		<div class="klog3" data-id="klog3"></div>
+		<div class="klog4" data-id="klog4"><img class="kuser" data-id="kimg4" src="img/state/doctor.svg"><div class="kquery4" data-id="kquery4">Book</div></div>
+	  </div>
+	  $\downarrow$
+	  <div data-id="mix" class="kanon container">
+		<div class="col">
+			<img class="kuser" data-id="kimg1" src="img/state/asistante.svg">
+			<img class="kuser" data-id="kimg3" src="img/state/police-women.svg">
+		</div>
+		<div class="col">
+			<div class="kquery2" data-id="kquery2">Cake</div>
+			<div class="kquery3" data-id="kquery3">Thief</div>
+		</div>
+	  </div>
+	  $\downarrow$
+	  <div data-id="output" class="kout">
+		<div class="oklog1" data-id="oklog1"><img class="kuser" data-id="kimg2" src="img/state/chef.svg"><div class="kquery1" data-id="kquery1">Mask</div></div>
+		<div class="oklog2" data-id="oklog2"></div>
+	  </div>
+	</section>
+
+	<section data-auto-animate>
+	  <h3>Probabilistic $k$-anonymity: $k=3$</h3>
+	  <div data-id="input" class="kin">
+		<div class="klog1" data-id="klog1"></div>
+		<div class="klog2" data-id="klog2"></div>
+		<div class="klog3" data-id="klog3"></div>
+		<div class="klog4" data-id="klog4"></div>
+	  </div>
+	  $\downarrow$
+	  <div data-id="mix" class="kanon container">
+		<div class="col">
+			<img class="kuser" data-id="kimg1" src="img/state/asistante.svg">
+			<img class="kuser" data-id="kimg3" src="img/state/police-women.svg">
+			<img class="kuser" data-id="kimg4" src="img/state/doctor.svg">
+		</div>
+		<div class="col">
+			<div class="kquery2" data-id="kquery2">Cake</div>
+			<div class="kquery3" data-id="kquery3">Thief</div>
+			<div class="kquery4" data-id="kquery4">Book</div>
+		</div>
+	  </div>
+	  $\downarrow$
+	  <div data-id="output" class="kout">
+		<div class="oklog1" data-id="oklog1"><img class="kuser" data-id="kimg2" src="img/state/chef.svg"><div class="kquery1" data-id="kquery1">Mask</div></div>
+		<div class="oklog2" data-id="oklog2"></div>
+	  </div>
+	</section>
+
+	<section data-auto-animate>
+	  <h3>Probabilistic $k$-anonymity: $k=3$</h3>
+	  <div data-id="input" class="kin">
+		<div class="klog1" data-id="klog1"></div>
+		<div class="klog2" data-id="klog2"></div>
+		<div class="klog3" data-id="klog3"></div>
+		<div class="klog4" data-id="klog4"></div>
+	  </div>
+	  $\downarrow$
+	  <div data-id="mix" class="kanon container">
+		<div class="col">
+			<img class="kuser" data-id="kimg1" src="img/state/asistante.svg">
+			<img class="kuser" data-id="kimg4" src="img/state/doctor.svg">
+		</div>
+		<div class="col">
+			<div class="kquery2" data-id="kquery2">Cake</div>
+			<div class="kquery3" data-id="kquery3">Thief</div>
+		</div>
+	  </div>
+	  $\downarrow$
+	  <div data-id="output" class="kout">
+		<div class="oklog1" data-id="oklog1"><img class="kuser" data-id="kimg2" src="img/state/chef.svg"><div class="kquery1" data-id="kquery1">Mask</div></div>
+		<div class="oklog2" data-id="oklog2"><img class="kuser" data-id="kimg3" src="img/state/police-women.svg"><div class="kquery4" data-id="kquery4">Book</div></div>
+	  </div>
+	</section>
+
+<!-------------------------------------------------------------------------------->
+        </section>
+
+<!-------------------------------------------------------------------------------->
+<!-- PAPER 1                                                                    -->
+<!-------------------------------------------------------------------------------->
+
+	<section>
+	  <section>
+            <h2>Working at the WSE Side to Generate Privacy-preserving User Profiles</h2>
+	    <div style="text-align: right;">
+		<small style=""><a href="https://doi.org/10.1016/j.eswa.2016.08.033"><b>Expert Systems with Applications</b><br> 64(C):523–535, December 2016<br></a></small><br>
+		<small>Q1, I.F.: 2.981, 15 cites</small>
+	    </div>
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	  <section>
+	    <h3>Proposal</h3>
+	    <img class="plain" src="img/paper1/architecture.svg" width="100%">
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	<section>
+	  <h3>WSE anonymizer</h3>
+	  <div data-id="input" class="kin1">
+		<div class="klog1" data-id="klog1"></div>
+		<div class="klog4" data-id="klog4"><img class="kuser1" data-id="kimg4" src="img/state/doctor.svg"><div class="kquery14" data-id="kquery14">Book</div></div>
+		<div class="klog2" data-id="klog2"></div>
+	  </div>
+	  $\downarrow$<br>
+	  <div data-id="mix" class="kanon1 container1">
+		<div class="containerdesc"><b>Arts</b></div>
+		<div style="display: inline-flex;">	
+			<div class="col">
+				<div class="containerdesc">Users</div>
+				<img class="kuser1" data-id="kimg1" src="img/state/doctor.svg">
+				<img class="kuser1" data-id="kimg3" src="img/state/police-women.svg">&nbsp;
+			</div>
+			<div class="col">
+				<div class="containerdesc">Queries</div>
+				&nbsp;<div class="kquery14" data-id="kquery12">Brush</div>
+				<div class="kquery13" data-id="kquery13">Paint</div>
+			</div>
+		</div>
+	  </div>
+	  <div data-id="mix" class="kanon1 container1">
+		<div class="containerdesc"><b>Business</b></div>
+		<div style="display: inline-flex;">
+			<div class="col">
+				<div class="containerdesc">Users</div>
+				<img class="kuser1" data-id="kimg1" src="img/state/asistante.svg">
+				<img class="kuser1" data-id="kimg3" src="img/state/police-women.svg">&nbsp;
+			</div>
+			<div class="col">
+				<div class="containerdesc">Queries</div>
+				&nbsp;<div class="kquery11" data-id="kquery12">Stock</div>
+				<div class="kquery13" data-id="kquery13">IRS</div>
+			</div>
+		</div>
+		
+	  </div>
+	  <div data-id="mix" class="kanon1 container1">
+		<div class="containerdesc"><b>Computers</b></div>
+		<div style="display: inline-flex;">
+			<div class="col">
+				<div class="containerdesc">Users</div>
+				<img class="kuser1" data-id="kimg1" src="img/state/asistante.svg">
+				<img class="kuser1" data-id="kimg3" src="img/state/chef.svg">&nbsp;
+			</div>
+			<div class="col">
+				<div class="containerdesc">Queries</div>
+				&nbsp;<div class="kquery11" data-id="kquery12">Web</div>
+				<div class="kquery12" data-id="kquery13">DVD</div>
+			</div>
+		</div>
+	  </div>
+	  ...
+	  <br>$\downarrow$
+	  <div data-id="output" class="kout1">
+		<div class="oklog1" data-id="oklog1"><img class="kuser1" data-id="kimg2" src="img/state/chef.svg"><div class="kquery11" data-id="kquery1">Mask</div></div>
+	  </div>
+	</section>
+
+	  <section>
+	    <h3>Classifier</h3>
+	    <div class="container">
+		<div class="colbig">
+		    <img class="plain" src="img/paper1/architecture_anonymization_1.svg">
+		</div>
+		<div class="col align-left">
+		    <br>
+		    <ul>
+			<li><span>Natural language</span></li>
+			<li><span>Recommendations</span></li>
+			<li><span>Entropies</span></li>
+			<li><span>Categorization</span></li>
+		    </ul>
+	    </div>
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	  <section>
+	    <h3>Classifier</h3>
+	    <div class="container">
+		<div class="col align-left">
+		    <p>Additional tasks:</p>
+		    <ul>
+			<li><span>Recommendations</span></li>
+			<li><span>Entropies</span></li>
+			<li><span>Categories</span></li>
+		    </ul>
+		    <p>
+			TOR + Privoxy<br>
+			Fast NLTK version
+		    </p>
+		</div>
+		<div class="col">
+		    <img class="plain" src="img/paper1/classifier.png">
+		</div>
+	    </div>
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	  <section>
+	    <h3>Anonymizer and profiler</h3>
+	    <div class="container">
+		<div class="col">
+		    <img class="plain" src="img/paper1/architecture_anonymization_2.svg">
+		</div>
+		<div class="col align-left">
+		    <br><br><br>
+		    <ul>
+			<li><span>Top level categories</span></li>
+			<li><span>Split users and queries</span></li>
+			<li><span>Randomly matched</span></li>
+			<li><span>Update user profiles</span></li>
+		    </ul>
+	    <blockquote style="width:100%"><b>Restriction</b><br> Do not repeat original pairs</blockquote>
+		</div>
+	    </div>
+
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	  <section>
+	    <h3>De-anonymizers</h3>
+	    <p>
+		Try to reconstruct original logs<br>
+		Pick a random query from a category $|C|>k$<br>
+		<br>
+		User:
+	    </p>
+	    <ol>
+		<li><span>Random, using the restriction</span></li>
+		<li><span>More current appearances in category</span></li>
+		<li><span>Most likely profile</span></li>
+		<li><span>Similar profile and more current appearances</span></li>
+	    </ol>
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	  <section>
+	    <h3>De-anonymizers + Time</h3>
+	    <p>Time field effect, in real time?</p>
+
+	    <div class="container">
+		<div class="col">
+		    <img class="plain" src="img/paper1/time.png">
+		</div>
+		<div class="colbig">
+		    <p>Unused time field<br>Publication order</p>
+		    $\downarrow$
+		    <p>Logs ordered by time field<br>Have they all been processed?</p>
+		</div>
+	    </div>
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	  <section>
+	    <h3>Heuristics</h3>
+	    <div class="container">
+		<div class="colbig align-left">
+		    <br>
+		    <strong>Without restriction</strong><br>
+			<ul>
+			  <li><span>Constant $k$</span></li>
+			  <li><span>% not anonymized</span></li>
+			</ul>
+			<br><br><br>
+		    <strong>With restriction</strong><br>
+			<ul>
+			  <li><span>$k$ > 200</span></li>
+			  <li><span>All anonymized</span></li>
+			</ul><br>
+		    <p>$\delta \rightarrow$ Memory consumption</p>
+
+		</div>
+		<div class="col">
+			<img class="plain" src="img/paper1/privacy_final_k.svg"><br>
+			<img class="plain" src="img/paper1/privacy_match.svg">
+		</div>
+	    </div>
+	    <aside class="notes">
+	    </aside>	
+	  </section>
+
+	  <section>
+	    <h3>Privacy</h3>
+	    <img class="plain" src="img/paper1/privacy_match_zoom.svg">
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	  <section>
+	    <h3>Functional requirements</h3>
+		<table>
+		    <tr>
+			<th></th>
+			<th>Time/log($\mu$s)</th>
+			<th>Queries/second</th>
+		    </tr>
+		    <tr>
+			<td>Classifier</td>
+			<td><b>1.503</b></td>
+			<td>665</td>
+		    <tr>
+		    <tr>
+			<td>Anonymizer</td>
+			<td>22</td>
+			<td><b>45.454</b></td>
+		    <tr>
+		    <tr>
+			<td>Profiler</td>
+			<td>267</td>
+			<td>3.745</td>
+		    <tr>
+		</table>
+
+		<div class="container">
+		    <div class="col align-left">
+			<br><br><br>
+			<table>
+			    <tr>
+				<th></th>
+				<th>Mem.(MiB)</th>
+			    </tr>
+			    <tr>
+				<td>Classifier</td>
+				<td>112</td>
+			    <tr>
+			    <tr>
+				<td>Anonymizer</td>
+				<td>10</td>
+			    <tr>
+			    <tr>
+				<td>Profiler</td>
+				<td>12</td>
+			    <tr>
+			</table>
+		    </div>
+		    <div class="col">
+			<br>
+			<img class="plain" src="img/paper1/speed_deanonymizer.svg" width="80%">
+		    </div>
+		</div>
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	  <section>
+	    <h3>Utility</h3>
+		<table>
+		    <tr><th></th><th></th><th></th><th></th><tr>
+		    <tr><td>Arts</td><td>57%</td><td>Recreation</td><td>55%</td><tr>
+		    <tr><td>Business</td><td>77%</td><td>Reference</td><td>69%</td><tr>
+		    <tr><td>Computers</td><td>65%</td><td>Regional</td><td>69%</td><tr>
+		    <tr><td>Games</td><td>56%</td><td>Science</td><td>47%</td><tr>
+		    <tr><td>Health</td><td><b>88%</b></td><td>Shopping</td><td>70%</td><tr>
+		    <tr><td>Home</td><td>81%</td><td>Society</td><td>57%</td><tr>
+		    <tr><td>Kids and Teens</td><td>38%</td><td>Sports</td><td>40%</td><tr>
+		    <tr><td>News</td><td><b>17%</b></td><td>World</td><td>31%</td><tr>
+		</table>
+	    <p>
+		Classified 74% $\rightarrow$ Recommendations <b>85%</b><br>
+		<b>59%</b> Correct
+	    </p>
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	</section>
+
+<!-------------------------------------------------------------------------------->
+<!-- PAPER 2                                                                    -->
+<!-------------------------------------------------------------------------------->
+
+	<section>
+	  <section>
+            <h2>A Real-Time Query Log Protection Method for Web Search Engines</h2>
+	    <div style="text-align: right;">
+		<small style=""><a href="https://doi.org/10.1109/ACCESS.2020.2992012"><b>IEEE Access</b><br> Vol. 8, 87393–87413, May 2020</a></small><br>
+		<small>Q1, I.F.: 4.098</small>
+	    </div>
+	  </section>
+
+	  <section>
+	    <h3>Motivation</h3>
+	    <p>
+		<ul>
+			<li><span>Preserve as much data utility as desired</span></li>
+			<li><span>Customizable levels of categorization</span></li>
+			<li><span>Formal and experimental proofs</span></li>
+		</ul>
+	    </p>
+	    <img class="plain" src="img/paper1/requirements.png" width="90%">
+	    <aside class="notes">
+		In this chapter, we want to improve the previously proposed system. 
+		In order to make data monetization viable, one also must keep in mind that reducing privacy disclosure risk is not enough. 
+		At the same time, as much data utility as possible should be preserved. 
+		In the previous chapter, query logs were classified using broad categories, which caused a certain degree of utility loss.
+		
+		We reason some modifications over the previous approach to achieve a system with customizable data utility
+		the present chapter expands our previous proposal to use parameterizable levels of categorization. 
+		We seek to enable the WSE to adjust utility of generated logs according to the needs of each application.
+		We will also validate the proposal to prove that it is able to achieve the same or better level of privacy than previously reported, 
+		with an improved overall data utility. Formal and experimental proofs will be devised to ensure its feasibility.
+	    </aside>
+	  </section>
+
+	<section>
+	  <h3>Proposal</h3>
+	  <div data-id="input" class="kin1">
+		<div class="klog1" data-id="klog1"></div>
+		<div class="klog4" data-id="klog4"><img class="kuser1" data-id="kimg4" src="img/state/doctor.svg"><div class="kquery14" data-id="kquery14">Book</div></div>
+		<div class="klog2" data-id="klog2"></div>
+	  </div>
+	  $\downarrow$<br>
+	  <div data-id="mix" class="kanon21 container1">
+		<div class="containerdesc"><b>Arts</b></div>
+		<div style="display: inline-flex;">	
+			<div class="col"><div class="containerdesc">$U_1^1$&nbsp;&nbsp;</div></div>
+			<div class="col"><div class="containerdesc">&nbsp;&nbsp;$Q_1^1$</div></div>
+		</div>
+	  </div>
+	  <div data-id="mix" class="kanon22 container1">
+		<div class="containerdesc"><b>Business</b></div>
+		<div style="display: inline-flex;">
+			<div class="col"><div class="containerdesc">$U_2^1$&nbsp;&nbsp;</div></div>
+			<div class="col"><div class="containerdesc">&nbsp;&nbsp;$Q_2^1$</div></div>
+		</div>
+		
+	  </div>
+	  <div data-id="mix" class="kanon23 container1">
+		<div class="containerdesc"><b>Computers</b></div>
+		<div style="display: inline-flex;">
+			<div class="col"><div class="containerdesc">$U_3^1$&nbsp;&nbsp;</div></div>
+			<div class="col"><div class="containerdesc">&nbsp;&nbsp;$Q_3^1$</div></div>
+		</div>
+	  </div>
+
+	  ...<br><br>
+
+	  <div data-id="mix" class="kanon31 container1">
+		<div class="containerdesc"><b>A/Music</b></div>
+		<div style="display: inline-flex;">	
+			<div class="col"><div class="containerdesc">$U_1^2$&nbsp;&nbsp;</div></div>
+			<div class="col"><div class="containerdesc">&nbsp;&nbsp;$Q_1^2$</div></div>
+		</div>
+	  </div>
+	  <div data-id="mix" class="kanon31 container1">
+		<div class="containerdesc"><b>A/Painting</b></div>
+		<div style="display: inline-flex;">
+			<div class="col"><div class="containerdesc">$U_2^2$&nbsp;&nbsp;</div></div>
+			<div class="col"><div class="containerdesc">&nbsp;&nbsp;$Q_2^2$</div></div>
+		</div>
+		
+	  </div>
+	  <div data-id="mix" class="kanon32 container1">
+		<div class="containerdesc"><b>B/Companies</b></div>
+		<div style="display: inline-flex;">
+			<div class="col"><div class="containerdesc">$U_3^2$&nbsp;&nbsp;</div></div>
+			<div class="col"><div class="containerdesc">&nbsp;&nbsp;$Q_3^2$</div></div>
+		</div>
+	  </div>
+	  <div data-id="mix" class="kanon33 container1">
+		<div class="containerdesc"><b>C/Software</b></div>
+		<div style="display: inline-flex;">
+			<div class="col"><div class="containerdesc">$U_4^2$&nbsp;&nbsp;</div></div>
+			<div class="col"><div class="containerdesc">&nbsp;&nbsp;$Q_4^2$</div></div>
+		</div>
+	  </div>
+	  <div data-id="mix" class="kanon33 container1">
+		<div class="containerdesc"><b>C/Hardware</b></div>
+		<div style="display: inline-flex;">
+			<div class="col"><div class="containerdesc">$U_5^2$&nbsp;&nbsp;</div></div>
+			<div class="col"><div class="containerdesc">&nbsp;&nbsp;$Q_5^2$</div></div>
+		</div>
+	  </div>
+	  ...<br>
+	  ...
+	  <br>$\downarrow$
+	  <div data-id="output" class="kout1">
+		<div class="oklog1" data-id="oklog1"><img class="kuser1" data-id="kimg2" src="img/state/chef.svg"><div class="kquery11" data-id="kquery1">Mask</div></div>
+	  </div>
+	</section>
+
+	  <section>
+	    <h3>Restrictions</h3>
+	    <p>
+		<blockquote>
+		A given query associated to an anonymized log must 
+		<b>not be assigned to the same user</b> that issued the 
+		query on the unanonymized log.
+		</blockquote>
+
+		<blockquote>
+		When creating an anonymized query log, user must be selected <b>randomly
+		between at least $k$ different user</b> values.
+		</blockquote>
+
+		Therefore, $U_x^h$ and $Q_x^h$ may have different size
+	    </p>
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	  <section>
+		<h3>Maximum probability of re-identification</h3>
+		\begin{align}
+		    P(Re(r'_j)=Id(r'_j)) \leq \max\limits_{\forall x,h} \frac{|U_x^h \cap {Id(r'_j)}|}{|U_x^h|}
+		\end{align}
+
+		\begin{align}
+		    \forall x,h,Id(r'_j) \rightarrow |U_x^h \cap {Id(r'_j)}| \in {0,1}
+		\end{align}
+
+		$P(Re(r'_j)=Id(r'_j)) \leq \frac{1}{k}$<br/><br/> 
+		Probabilistic $k$-anonymity!
+	    <aside class="notes">
+		We show next that our proposal satisfies the property defined in Eq.~(\ref{eq:upperB}). 
+		For each vertex $v_x^h$ of $\tau$, the random selection of an element (Restriction \ref{def:restriction_2}) guarantees that 
+		all outcomes are equally likely to be selected. Therefore, we can state maximum probability of re-identification of a $r'_j$ over $\tau$ using:
+		\begin{align}
+		    P(Re(r'_j)=Id(r'_j)) \leq \max\limits_{\forall x,h} \frac{|U_x^h \cap {Id(r'_j)}|}{|U_x^h|}
+		\end{align}
+
+		\noindent As $U_x^h$ sets are defined using arity, we know that:
+		\begin{align}
+		    \forall x,h,Id(r'_j) \rightarrow |U_x^h \cap {Id(r'_j)}| \in {0,1}
+		\end{align}
+
+		\noindent Someone could argue that Restriction \ref{def:restriction_1} leads to a value of $k-1$. 
+		However, since Restriction \ref{def:restriction_2} establishes this value to $k$ (Restriction~\ref{def:restriction_2} also 
+		assures that $|U_x^h| \geq k$), the upper bound of our proposal for $P(Re(r'_j)=Id(r'_j))$ is strictly lower or equal
+		to ${\frac{1}{k}}$, hence satisfying probabilistic $k$-anonymity. A more formal analysis about this result is provided next.
+	    </aside>
+	  </section>
+
+<!--
+	  <section>
+		<h3>Anonymizer Algorithm</h3>
+		Inputs: $k$, $\ell$ and $R$. Output: $R'$
+        	<pre><code data-trim data-noescape>
+		  \ForEach{$r_j \in R$}{
+		    // Get current user, query text and full query categorization\\
+		    $u, q, c \gets r_j$\;
+		    // Truncate categorization to level $\ell$\\
+		    $cat \gets \{\gamma_s^1, ..., \gamma_{s^*}^\ell \} \in c$\;
+		    // Add current user to users' category set\\
+		    $users[cat] \gets u$\;
+		    // Add current query and full categorization to queries' category set\\
+		    $query[cat] \gets \{q, c\}$\;
+		    // While there are more than $k$ distinct users on the current category\\
+		    \While{$distinct(users[cat]) > k$}{
+			// Select and remove a random query and categorization from the category's set\\
+			\textbf{pop} random \{$q', c'\} \in query[cat]$\;
+			// Select and remove a random user from the category's set, distinct from the original user related to the query\\
+			\textbf{pop} random $u' \in users[cat], u'\neq Id(q)$\; %q.user $\;
+			// Send to the output the selected user, query and category\\
+			\textbf{send} $u', q', c'$\;
+		    }
+		  }
+		</code></pre>
+
+	    <aside class="notes">
+		An algorithmic version of our anonymization process is presented in Algorithm~\ref{c4_anonymizer-algo}. Algorithm~\ref{c4_deanonymizer-algo} 
+		presents the anonymization process counterpart, assumed to be implemented 
+		by a PPT adversary.  Algorithm~\ref{c4_anonymizer-algo} receives three 
+		main inputs: desired $k$, $\ell$ values, and $R$ as a stream of 
+		hierarchically categorized query logs.
+	    </aside>
+	  </section>
+-->
+
+	  <section>
+	    <h3>Full Architecture</h3>
+		<img class="plain" src="img/paper2/full_architecture.svg"/>
+	    <aside class="notes">
+		\Figure[ht](topskip=0pt, botskip=0pt, midskip=0pt)[scale=0.64]{full_architecture}
+		{Full Architecture: \textit{WSE Anonymizer} takes a stream of query logs and anonymizes them, also generating a database of user profiles.
+		It implements Algorithm~\ref{anonymizer-algo} (cf. Section~\ref{sec:proposal}). 
+		\textit{De-anonymizer} implements Algorithm~\ref{deanonymizer-algo} and simulates adversarial actions over the anonymized logs. 
+		It tries to recreate the original logs and user profiles. \textit{Profile matcher}, responsible of benchmarking anonymization, 
+		de-anonymization and performance, also generates a profile utility metric.\label{fig:architecture}}
+	    </aside>
+	  </section>
+
+	  <section>
+	    <h3>Experimental Results</h3>
+		<b>Classifier</b> 
+		<blockquote>
+			85% $\rightarrow$ 98% original logs<br>
+			Hierarchical classification: $1 \leq n \leq 13$.<br>
+		</blockquote>
+
+		<b>Anonymizer</b>
+		<blockquote>
+		$3 \leq k \leq 200$<br>
+		$1 \leq \ell \leq 13$<br>
+		</blockquote>
+
+		<b>Profiler</b>
+		<blockquote>
+		Determine loss of data utility<br>
+		$3 \leq k \leq 90$ and $1 \leq \ell \leq 13$<br>
+		</blockquote>
+	    <aside class="notes">
+		However, some changes made tonatural language processing algorithms on theclassifierleadto categorize 98% of original logs, an improvement of overthe 85% categorized in
+
+		For our experiments, we use plain datasets (i.e., text files),containing  query  logs  released  byAOL[31].  The  releasedAOLdata contains up to thirty six million query logs. Suchquery logs correspond to a three-month period of real websearch activity conducted byAOLusers, and released byAOLfor research purposes. Figure 5 provides a brief sample of theused logs.
+
+		The Classifier (cf. Section IV-A), adds to each log recordan  additional  column  with  a  hierarchical  classification  inform of a list withnelements. In our case,nwas between oneand13, and each element of the list represents a subcategoryof the previous element. This classification is generated inde-pendently of the anonymizer. Therefore, this list contains allthe subcategories which the Classifier is able to generate fora given query, regardless of the`used by the anonymizationprocess.
+
+
+		\noindent \textbf{Anonymizer ---} to generate anonymized data, proposed
+		\textit{anonymizer} was executed on all available AOL logs multiple
+		times, to cover different $k$ and $\ell$ values. $k$ has taken values
+		between 3 and 200 to be able to compare obtained results with previous
+		ones \cite{Pamies-Estrems}. 
+		To do this, Algorithm \ref{anonymizer-algo} needs to be tested at least using $\ell=1$.
+		We decided to test all
+		available $\ell$ values, that with our classification correspond to
+		values between one and 13, but we found that from 11 onwards,
+		differences were not significant: few logs have more than 11
+		categories of depth. Our privacy, functional and utility requirements
+		are checked for every combination of $k$ and $\ell$.
+
+		\noindent \textbf{Profiler ---} specific tests were conducted with the
+		\textit{profiler}, to determine the amount of data utility that could
+		be lost with anonymized profiles creation respect to unanonymized
+		profiles. For those tests, we used $k$ values between three and 90 and
+		$\ell$ values between one and 13.
+	    </aside>
+	  </section>
+
+	  <section>
+	    <h3>De-anonymizer</h3>
+
+		<b>Record-linkage 1</b><br> 
+		<blockquote>Randomly match users and queries<br> (Same category + Restrictions)</blockquote>
+
+		<b>Record-linkage 2</b><br>
+		<blockquote>User more times on a category</blockquote>
+
+		<b>Record-linkage 3</b><br>
+		<blockquote>User profiles. Balances current and historical values</blockquote>
+
+	    <aside class="notes">
+		\noindent \textbf{De-anonymizer ---} a de-anonymization has been attempted
+		against all anonymized data. All anonymized data was tested against
+		three different \textit{record-linkage} algorithms:
+		\begin{itemize}
+		\label{record-linkage-alg}
+		\item\textbf{Record-linkage 1 ---} This is the simplest record-linkage
+		  algorithm we tested. It tries to apply an inverse transformation to
+		  anonymized query logs by applying a similar algorithm to the one
+		  used in the anonymization process (cf. Algorithm~\ref{anonymizer-algo} in Section~\ref{sec:proposal}). In
+		  short, it tries to recreate original logs by randomly matching users
+		  and queries from the same category. Attacker also takes advantage of
+		  both restrictions \ref{def:restriction_1}, \ref{def:restriction_2}
+		  to achieve higher levels of de-anonymization.
+
+		\item\textbf{Record-linkage 2 ---} It improves the
+		  performance over \textit{Record-linkage 1}. Instead of randomly
+		  matching users and queries, it assigns the user that appears more
+		  times on a category to the selected query. Just like other
+		  algorithms, both restrictions are respected.
+
+		\item\textbf{Record-linkage 3 ---} It keeps track of
+		  how many times a user issued a query on each category, constantly
+		  updating a simplified user profile. When the algorithm needs to
+		  assign a user to a query, the user with more issued queries on that
+		  category will be chosen. If a user appears more than one time, the
+		  result will be multiplied by the number of appearances of that user,
+		  balancing the importance between current state of the system and
+		  historical values.
+	    </aside>
+	  </section>
+
+	  <section>
+	    <h3>Privacy study</h3>
+		<img class="plain" src="img/paper2/record_linkage_1.svg" width="30%">&nbsp;<br>
+		<img class="plain" src="img/paper2/record_linkage_2.svg" width="30%">&nbsp;
+		<img class="plain" src="img/paper2/record_linkage_3.svg" width="30%"><br>	
+	    <aside class="notes">
+		Figure \ref{fig:record_linkage} shows percentage of matching records,
+		executing the three algorithms with values of $k$ between three and
+		200 and values of $\ell$ between one and 13. With $\ell=1$, only one
+		level of the tree structure was used, which results in a data
+		structure equivalent to the one used in our former paper \cite{Pamies-Estrems}. $\ell=13$ is
+		the maximum depth that our classifier was able to generate. Thus, there is
+		no need to use higher $\ell$ values. We also picked out $k$ values to
+		be able to compare results between our current and former evaluation.
+
+		Each \textit{record-linkage} version improves re-identification rate,
+		being the third version the one that obtains better results overall.
+		%$k$ value was highly correlated with privacy, increasing the values of $k$, record linkage decreases
+		$k$ value was highly correlated with privacy, because when the value of $k$ increases, record linkage decreases.
+		$\ell$ also affects privacy. With a
+		higher number of levels (high $\ell$ value) users were matched with
+		more specific queries, therefore, it was also more probable to obtain
+		a correct re-identification of the original user. Here, we face a
+		trade-off between privacy and data utility.
+
+		\Figure[ht](topskip=0pt, botskip=0pt, midskip=0pt)[scale=0.64]{k_initial_final}
+		{Final $\mid Q \mid$-value, as the mean size of queries' sets. For low $\ell$ values, final $\mid Q \mid$ is higher due to more user coincidences on the same category. With higher $\ell$ values, final $\mid Q \mid$ tend to match the specified $k$.\label{fig:privacy-k-initial-final}}
+
+		The highest record linkage is obtained with highest $\ell$ and lowest
+		$k$ values. Our best de-anonymizer algorithm was able to link $23.18$\%
+		records to the original user. De-anonymization tests were conducted
+		knowing exactly all algorithms, categories and variables used for
+		anonymization. This ratio decreases quickly when initial $k$ value is
+		increased, obtaining a record linkage lower than $1$\% from $k$ values
+		greater than $90$. In conclusion, desired record linkage level could
+		be adjusted by modifying the $k$ value, even offsetting the effect of
+		$\ell$ variations on the record linkage.
+	    </aside>
+	  </section>
+
+	  <section>
+	    <h3>Privacy study</h3>
+		<img class="plain" src="img/paper2/ks.svg" width="40%">&nbsp;
+		<img class="plain" src="img/paper2/k_initial_final.svg" width="40%"><br>
+		<table>
+			<tr>
+				<td width="60%" style="text-align: center; padding-right:100px;">Kolmogorov-Smirnov<br>
+		<small>($D=0.08$, $p$-value$=0.9977$)</small></td>
+				<td>Final $\mid Q \mid$-value</td>
+			</tr>
+		</table>
+	    <aside class="notes">
+		In all cases, results are under the theoretical maximum probability
+		${\frac{1}{k}}$ of being re-identified~\cite{purdam2007case}. We ran the
+		  Kolmogorov-Smirnov goodness-of-fit statistical
+		  test~\cite{Kolmogorov1933,smirnov1948table} to compare the
+		  $k$-anonymity probability with the experimental results,
+		  Figure~\ref{fig:ks}. The maximum difference between the cumulative
+		  distributions, $D$, is $0.08$ with a corresponding $p$-value of
+		  $0.9977$. Therefore, the statistical test yields to acceptance of
+		  the null hypothesis that our results follow k-anonymity's
+		  probability of re-identification (at the 5\% level of
+		  significance).
+
+		\Figure[ht](topskip=0pt, botskip=0pt, midskip=0pt)[scale=0.64]{ks}
+		{Comparison between cumulative fraction functions
+		of the theoretical $k$-anonymity (dashed) and experimental
+		results (solid). Used for the Kolmogorov-Smirnov test
+		($D=0.08$, $p$-value$=0.9977$).\label{fig:ks}}
+	    </aside>
+	  </section>
+
+
+	  <section>
+	    <h3>Utility study</h3>
+		<img class="plain" src="img/paper2/tpc_out.svg" width="60%"><br>
+		% of logs generated as an output
+
+	    <aside class="notes">
+		We proceed to analyze the utility of the proposed anonymizer. This
+		analysis has been focused on two different aspects:
+		\begin{itemize}
+		\item Percentage of logs that the system can generate as an output.
+		\item Preservation of original user's interest in anonymized user's
+		  profiles.
+		\end{itemize}
+
+		First, we want to analyze the percentage of logs that can be generated
+		by the system over the total number of logs that it gets. The proposed
+		system uses sets, and each set must have at least $k$ different users before being
+		able to release an anonymized log. A possible drawback to this approach is that some sets do not reach $k$
+		users and, therefore, the logs contained in this set do not end up
+		leaving the system. As we can see in Figure~\ref{fig:tpc_out}, this
+		effect exists and it is directly proportional to the depth of the
+		category tree. This is consistent, since with more depth, more
+		categories are created and the minimum of $k$ users on these categories
+		is reached more slowly. However, we see that as more queries enter the
+		system, all categories become filled with queries and the percentage
+		of log output increases, tending to a $100$\% rate for any depth of the
+		tree.
+
+		\Figure[ht](topskip=0pt, botskip=0pt, midskip=0pt)[scale=0.64]{tpc_out}
+		{Output queries vs. total queries (\%). Some sets take a while to fill. This effect is directly proportional to the depth of the category tree as more sets need to get $k$ different users.\label{fig:tpc_out}}
+	    </aside>
+	  </section>
+
+	  <section>
+	    <h3>Utility study</h3>
+	    Preservation of original user's interest:<br>
+
+		<img class="plain" src="img/paper2/emd.svg" width="33%">
+
+		<img class="plain" src="img/paper2/emd_tpc.svg" width="33%"><br>
+
+		Using Earth Mover's Distance
+
+	    <aside class="notes">
+		Secondly, to measure the preservation of original user's interest in
+		anonymized user's profiles, we will measure the Distance between profiles,
+		using a metric known as Earth Mover's Distance
+		(EMD)~\cite{rubner2000earth}.
+		We calculate the distance between the categories of queries assigned
+		to the original profile and the anonymized profile. As our
+		classification of categories is stored in a tree graph, this distance
+		is defined as the minimum length of the path that connects the
+		categories assigned to the original and anonymized query. Once we have
+		calculated the distance between individual queries, we add all the
+		distances of that profile and, thus, we obtain the total distance
+		between profiles. 
+
+		Notice that if two queries are classified and anonymized with the same category, there is no distance between the two queries and there is no utility loss. This happens to all the queries when the depth of the tree is set to 13. However, other tree depths can lead to utility loss. For instance, in the example of Table \ref{tab:applying}, “piano” is classified as “Arts/Music” but the anonymizer is just using “Arts”, since the value of $\ell$ is equal to 1. Queries classified as “Arts/Music” and “Arts/Painting” are mixed in “Arts” and assigned to different users. A third party could think that Alice is interested in “Painting”, when she is just interested in “Music”. i.e., there is a certain degree of utility loss. Since the third party still knows that Alice is interested in “Art”, we can see the previous case as an example of partial utility loss. Therefore EMD represents the distance between the original user's interests, and the ones that are deducted from the anonymized queries.
+
+		\FigureTwo[ht](topskip=0pt, botskip=0pt, midskip=0pt)[scale=0.40]{emd}{emd_tpc}
+		{(a) Maximum theoretical distance between profiles,
+		    constant, and average EMD distances, inversely proportional to
+		    \textit{$\ell$}.\label{fig:emd} (b) Loss of utility (\%), the more levels we use
+		    in our anonymizer, the better data utility.\label{fig:emd_tpc}}
+	    </aside>
+	  </section>
+
+	  <section>
+	    <h3>Speed</h3>
+		<img class="plain" src="img/paper2/time_shu_.svg" width="33%"><br>
+		<img class="plain" src="img/paper2/mean_time_1.svg" width="30%">&nbsp;
+		<img class="plain" src="img/paper2/mean_time_2.svg" width="30%">&nbsp;
+		<img class="plain" src="img/paper2/mean_time_3.svg" width="30%"><br>
+	    <aside class="notes">
+		The fastest execution was achieved with $k=3$ and $\ell=1$, where on
+		average a query was processed in $18.99$ $\mu$s. Therefore, the system
+		can handle up to $52 659$ queries per second, on average.
+
+		Average processing time per query was $33.68$ $\mu$s, or $29 691$ queries per second. It includes executions with all the $k$ and $\ell$ values we have tested. Compared to our previous proposal where we obtained $22$ $\mu$s per query, we see that the system is slower on average, but with greater data utility. However, depending on which parameter values are used, the system is faster than our previous proposal, as described below.
+
+		\Figure[ht](topskip=0pt, botskip=0pt, midskip=0pt)[scale=0.64]{time_shu_}
+		{Anonymizer mean time per query ($\mu$s). $\ell$-value has little effect on required time, $k$-value has a greater effect.\label{fig:time_shu}}
+
+
+		\FigureThree[ht](topskip=0pt, botskip=0pt, midskip=0pt)[scale=0.40]{mean_time_1}{mean_time_2}{mean_time_3}
+		{De-anonymizer mean time per query ($\mu$s). First
+		de-anonymizer obtained comparable results to the
+		anonymizer. Second and third de-anonymizers, which are
+		more complex, are also slower and are more affected by
+		increases in $k$-value.\label{fig:mean_time}}
+	    </aside>
+	  </section>
+
+	  <section>
+	    <h3>Delay</h3>
+		<img class="plain" src="img/paper2/queries_delay.svg" width="60%"><br>
+		$\ell \leq 6 < 1s$ &nbsp;&nbsp;&nbsp;&nbsp; $\ell \leq 13 < 2 s$
+	    <aside class="notes">
+		\Figure[ht](topskip=0pt, botskip=0pt, midskip=0pt)[scale=0.64]{queries_delay}
+		{Queries delay, as the mean number of other queries that enter the system during the period between the entry and the leave of a given query. Once the categories are full, the output stabilizes.\label{fig:queries_delay}}
+
+		Taking as reference the $40 000$ queries per second that Google
+		receives (according to Ref.~\cite{gsearch}), we see that our system's
+		output stabilizes in a few minutes for larger values of $\ell$. Once
+		the delay is stable, our system takes less than one second for values
+		$\ell \leq 6$, and does not reach two seconds for larger values of
+		$\ell$.
+	    </aside>
+	  </section>
+
+	<!--
+	  <section>
+	    <h3>RESOURCE CONSUMPTION</h3>
+		<table>
+			<tr>
+				<th>$\ell$</th> <th>Added categories</th> <th>Total categories</th>
+				<th>$\ell$</th> <th>Added categories</th> <th>Total categories</th>
+			</tr>
+			<tr><td><b>1</b></td><td>16</td><td>16</td>			<td><b>8</b></td><td>26 914</td><td>167 123</td></tr>
+			<tr><td><b>2</b></td><td>537</td><td>553</td>			<td><b>9</b></td><td>16 863</td><td>183 986</td></tr>
+			<tr><td><b>3</b></td><td>5 523</td><td>6 076</td>		<td><b>10</b></td><td>7 863</td><td>191 849</td></tr>
+			<tr><td><b>4</b></td><td>21 768</td><td>27 862</td>		<td><b>11</b></td><td>2 143</td><td>193 992</td></tr>
+			<tr><td><b>5</b></td><td>36 806</td><td>64 668</td>		<td><b>12</b></td><td>441</td><td>194 433</td></tr>
+			<tr><td><b>6</b></td><td>35 543</td><td>100 211</td>		<td><b>13</b></td><td>72</td><td>194 505</td></tr>
+			<tr><td><b>7</b></td><td>39 998</td><td>140 209</td>		<td></td><td></td><td></td></tr>
+		</table>
+	    <aside class="notes">
+		\caption{Number of categories added with each increase in $\ell$-value and total categories of a tree with $\ell$ depth. Although we found a maximum depth of thirteen, we see that most records are classified at depths between five and seven.}
+		\label{tab:categories}
+		\end{table}
+	    </aside>
+	  </section>
+-->
+	  <section>
+	    <h3>Resource Consumption</h3>
+	    <img class="plain" src="img/paper2/memory_1.svg" width="30%">&nbsp;
+	    <img class="plain" src="img/paper2/memory_2.svg" width="30%">&nbsp;
+	    <img class="plain" src="img/paper2/memory_3.svg" width="30%"><br>
+	    <aside class="notes">
+		\FigureThree[ht](topskip=0pt, botskip=0pt, midskip=0pt)[scale=0.40]{memory_1}{memory_2}{memory_3}
+		{The value of $\ell$ is the main parameter that affects
+		memory consumption. The value of $k$ adds a multiplicative factor.
+		Both the \textit{anonymizer} and \textit{de-anonymizer 1} show
+		the same memory profile. \textit {De-anonymizer 3} is the
+		algorithm with higher memory consumption, because it
+		creates user profiles in memory.\label{fig:memory}}
+	    </aside>
+	  </section>
+	</section>
+
+
+<!-------------------------------------------------------------------------------->
+<!-- PAPER 3                                                                    -->
+<!-------------------------------------------------------------------------------->
+	<section>
+	  <section>
+            <h2>Lifelogging Protection Scheme for Internet-based Personal Assistants</h2>
+	    <div style="text-align: right;">
+		<small style=""><a href="https://doi.org/10.1007/978-3-030-00305-0_31"><b>Data Privacy Management 2018</b><br> 431–440, September 2018</a></small><br>
+		<small>3 cites</small>
+	    </div>
+	  </section>
+
+	  <section>
+		<h3>Internet-based Personal Assistants (PA)</h3>
+		<div class="container">
+			<div class="colbig align-left">
+			    	<p>
+					Combine voice control and search<br>
+					To assist in household activities:
+				</p>
+				<ul>
+					<li><span>Scheduling meetings</span></li>
+					<li><span>Finding locations</span></li>
+					<li><span>Reporting of cultural events</span></li>
+					<li><span>Sending messages</span></li>
+				</ul>
+				<p>
+					Lifelogs about users<br>
+					Stored by big Internet players
+				</p>		
+			</div>
+			<div class="col">
+			    <br><br>
+			    <img class="plain" src="img/paper3/google_home.png"/>
+			</div>
+		</div>
+	    <aside class="notes">
+Anyone who uses these services is constantly disclosing, in a direct or indirect way, personal data to the organization which provides the service. Using Personal Assistants, the situation is even more accentuated, since the user is not in front of a computer. Users tend to establish more relaxed relationships with the device, sometimes without even knowing if it is working or sending information to another site, and mostly seeing it as a friend or an extension of its person.
+	    </aside>
+	  </section>
+
+	  <section>
+		<h3>Queries of a PA</h3>
+		<table>
+		    <tr><th>Field</th><th>Sample</th></tr>
+		    <tr><td>User id</td><td>150922</td><tr>
+		    <tr><td>Query</td><td>Quelle est la météo de demain</td><tr>
+		    <tr><td>Location</td><td>https://google.com/maps?q=<b>48.624924,2.443970</b></td><tr>
+		    <tr><td>Time</td><td>15 Jun 2020, 14:09:53</td><tr>
+		    <tr><td>Products</td><td>Assistant</td><tr>
+		</table>
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	  <section>
+		<h3>Sanitizable Signatures</h3>
+			<ul>
+			    <li><span>Signer creates a ciphertext $c$</span></li>
+			    <li><span>Divides $c \in \{0,1\}^*$ into $N$ blocks $m_1,..., m_N$</span></li>
+			    <li><span>$ADM \in {1,N}$ admissible modifications</span></li>
+			    <li><span>Signer signs $c$ using a key related to sanitizer</span></li>
+			    <li><span><b>Sanitizer can modify $ADM$ parts of $c$</b></span></li>
+			    <li><span><b>Keeps the resulting signature valid</b></span></li>
+			    <li><span>Satisfy unlinkability, and limit modifications</span></li>
+			</ul>
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	  <section>
+		<h3>General Data Protection Regulation (GDPR)</h3>
+		<ul>
+		    <li><span><b>Data Subject</b>: generates data</span></li>
+		    <li><span><b>Data Controller</b>: define processing purpose</span></li>
+		    <li><span><b>Data Processor</b>: ensure security</span></li>
+		</ul>
+		<p>Roles relevant to lifelogging environments</p>
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	  <section data-auto-animate>
+		<h3 data-id="title">Current architecture</h3>
+	        	<img class="plain" src="img/paper3/architecture_googlehome.svg" width="60%">
+		<p>
+		    <b>Main Service</b>: Data collector<br>
+		    <small>With access to queries, commands and control logs</small>
+		</p>
+		    <b>Third Parties</b>: Data processors<br>
+		    <small>With interest on accessing anonymized data</small>
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	  <section data-auto-animate>
+		<h3 data-id="title">Architecture change</h3>
+		<img class="plain" src="img/paper3/architecture_googlehome.svg" width="60%"><br>
+		$\downarrow$<br>
+		<img class="plain" src="img/paper3/architecture_proposal_simple.svg" width="60%"><br>
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	  <section data-auto-animate>
+		<h3 data-id="title">Proposed architecture</h3>
+		<img class="plain" src="img/paper3/architecture_proposal_simple.svg" width="60%"><br>
+		<p>
+		    <b>Identity Screener</b>: compliance of privacy<br>
+		    <small>Container of privacy filters for data protection</small>
+		</p>
+		<p>
+		    <b>Auditor</b>: Auditing agent<br>
+		    <small>Accountability and users' consent</small>
+		</p>
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	  <section>
+		<h3>Extended architecture (request)</h3>
+		<img class="plain" src="img/paper3/architecture_ttp.svg" width="90%"><br>
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	  <section>
+		<h3>Extended architecture (request)</h3>
+		<ul>
+		    <li><span><b>ID Anonymizer</b>:  Replaces userID with a pseudonymous</span></li>
+		    <li><span><b>Request Decrypter</b>:  Decrypts the body of the query</span></li>
+		    <li><span><b>Request Classifier</b>:  Determines the query class</span>
+			<ul>
+			    <li><span><b>Query Anonymizer</b>:  Treatment of general queries</span></li>
+			    <li><span><b>Query Generalizer</b>:  Treatment of location based queries</span></li>
+			    <li><span><b>Command Generalizer</b>:  Treatment of commands</span></li>
+			</ul>
+		    </li>
+		    <li><span><b>Request Integrator</b>:  Unifies anonymized queries</span></li>
+		    <li><span><b>ID De-anonymizer</b>:  Restores original userID</span></li>
+		</ul>
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	  <section>
+		<h3>Extended architecture (response)</h3>
+		        <img class="plain" width="90%" src="img/paper3/architecture_ttp_resp.svg"/>
+
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	  <section>
+		<h3>Extended architecture (response)</h3>
+		<p>After the Request Decrypter step, response is generated in parallel:</p>
+		<ul>
+		    <li><span><b>Request Decrypter</b>:  Decrypts the body of thequery</span></li>
+		    <li><span><b>Response Generator</b>:  Creates the encrypted response message</span></li>
+		    <li><span><b>ID De-anonymizer</b>:  Restores original userID</span></li>
+		</ul>
+	    <aside class="notes">
+	    </aside>
+	  </section>
+	</section>
+
+<!-------------------------------------------------------------------------------->
+<!-- CONCLUSION AND FUTURE WORK                                                 -->
+<!-------------------------------------------------------------------------------->
+
+	<section>
+	  <section>
+            <h2>Conclusions and Future Work</h2>
+	  </section>
+
+	  <section>
+	    <h3>Proposed system</h3>
+		<blockquote>Publish query logs reassigning categories</blockquote>
+		<small>Over unstructured data streams</small>
+		
+		<blockquote>Allows configuration</blockquote>
+		<small>$k$ adjusts privacy, $\ell$ adjusts utility</small><br>
+		<img class="plain" src="img/conclusions/machine.svg" width="40%">
+	    <aside class="notes">
+		<p>
+		A formal approach for the anonymization of WSE query logs has been
+		presented. Our proposal allows to publish query logs without
+		any other modification than eliminating direct identifiers and
+		equivalent user re-assignment categories. This contrasts with existing approaches
+		that release heavily modified data, either distorted or generalized,
+		to maintain anonymity. In addition, our proposal allows some degree of
+		configuration, using two main parameters:
+		\begin{itemize}
+		\item $k$ to adjust the level of diversity on each category.
+		\item $\ell$ to adjust the amount of available categories.
+		\end{itemize}
+		This parameterization allows to adjust privacy and utility levels of
+		generated logs according to the needs of each application.
+
+		Three algorithms have been evaluated performing an attack to the anonymized data,
+		using the most favorable scenario for the attacker, i.e., when the attacker knows
+		the algorithms used by the WSE, all the parameters and the data. The
+		attacker has access to the anonymized log stream, but not to the
+		original logs. Tests with this context and several values of $k$ and $\ell$
+		were conducted.
+
+		Our best record-linkage attempt re-identified $23.18$\% of original logs
+		with the lowest $k$-value, highest $\ell$-value and using the most
+		complex record-linkage algorithm, which is also the one that needs
+		more resources. With the same parameters, using the simplest
+		record-linkage algorithm we get an $18.36$\%. These results are
+		reduced rapidly, recovering less than $1$\% of original logs when
+		using values of $k$ over $100$. Variations in the values
+		of $\ell$ do not have a representative impact in terms of
+		record linkage, but they do offer a significant improvement
+		in terms of data utility.
+
+		Our proposed ideas were tested using the
+		\emph{AOL} released logs, showing the feasibility
+		of our solution over real environments. The application
+		of our work is sufficient to generate anonymized
+		logs that meet representative criteria, e.g., release of
+		anonymized data to third parties. Our solution can handle the 
+		equivalent to \emph{Google}'s average  
+		load, using only one execution thread per testing
+		environment. To evaluate log's utility after 
+		anonymization, we
+		have measured distances between user profiles using Earth Mover's
+		Distance. We have found that using an $\ell$-value of one, a $42.03$\%
+		of utility was lost. Using $\ell$-values of six or more, less than
+		$1$\% of utility was lost.
+		</p>
+	    </aside>
+	  </section>
+
+	  <section>
+	    <h3>Integration</h3>
+		<blockquote>In a Personal Assistants environment</blockquote>
+		<small>Architecture with anonymization and signatures</small>
+
+		<blockquote>Proposed in terms of GDPR</blockquote>
+		<small>w.r.t. cooperation between actors</small>
+
+		<blockquote>Role and needs of the organizations to monetize</blockquote>
+		<small>Limit privacy disclosure, keep data utility</small>
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	  <section>
+	    <h3>Requirements</h3>
+		<blockquote>
+			Lifelogging stream anonymization
+			<img class="plain" style="vertical-align:middle" src="img/conclusions/check.png" width="40px">
+		</blockquote>
+		<small>Proposed, developed and evaluated</small><br>
+
+		<blockquote>
+			Preserve utility $\rightarrow$ 3rd parties
+			<img class="plain" style="vertical-align:middle" src="img/conclusions/check.png" width="40px">
+		</blockquote>
+		<small>Allows monetization</small><br>
+
+		<blockquote>
+			Fast protection + high level of privacy
+			<img class="plain" style="vertical-align:middle" src="img/conclusions/check.png" width="40px"> 
+		</blockquote>
+		<small>Handles <i>Google</i>'s average load</small>
+	    <aside class="notes">
+	    </aside>
+	  </section>
+
+	  <section>
+	    <h3>Future Work</h3>
+			<blockquote>Additional categorizers may be proposed</blockquote>
+			<small>i.e. artificial intelligence systems</small>
+			<blockquote>Dynamic $\ell$-values & Distributed nodes</blockquote>
+			<small>Globally or per branch</small>
+			<blockquote>Experiments with logs' time</blockquote>
+			<small>Integration in other contexts</small><br>	
+			<img class="plain" src="img/conclusions/future3.png"/>
+
+	    <div class="container">
+		<div class="colbig">
+		</div>
+		<div class="col">
+
+		</div>
+	    </div>
+
+	    <aside class="notes">
+		There are several avenues for improving our work. Additional categorizers may
+		be proposed, for example using artificial intelligence systems
+		to perform query analysis. Another improvement is to consider  dynamic $\ell$-values, both globally or for some specific
+		category branches. System performance could also be tested in a
+		distributed node environment, where each node is responsible for
+		processing a part of the queries. A real-time record linkage analysis
+		could be added to ensure that we only publish records that meet a
+		certain threshold of privacy. Finally, some experiments could be
+		conducted with queries' time, both with anonymization and
+		de-anonymization algorithms, to improve their performance.
+	    </aside>
+	  </section>
+<!-------------------------------------------------------------------------------->
+<!-- THANKS                                                                     -->
+<!-------------------------------------------------------------------------------->
+
+	  <section>
+	      <h2>Thank you</h2>
+	      <img class="plain" width="50%" src="img/conclusions/question.png"/>
+	  </section>
+	</section>
+
+
+
+<!--------------------------------------------------------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------------->
+<!-- END OF SLIDES                                                                                                         -->
+<!--------------------------------------------------------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------------->
+
+
+
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="dist/reveal.js"></script>
+
+				<!--	{ src: 'plugin/notes/notes.js', async: true }, -->
+		<script src="plugin/notes/notes.js"></script>
+				<!--	{ src: 'plugin/markdown/markdown.js' }, -->
+		<script src="plugin/markdown/markdown.js"></script>
+				<!--	{ src: 'plugin/highlight/highlight.js', async: true }, -->
+		<script src="plugin/highlight/highlight.js"></script>
+				<!--	{ src: 'plugin/zoom-js/zoom.js', async: true }, -->
+		<script src="plugin/zoom/zoom.js"></script>
+				<!--	{ src: 'plugin/math/math.js', async: true } -->
+		<script src="plugin/math/math.js"></script>
+				<!--	{ src: 'plugin/customcontrols/customcontrols.js' } -->
+		<script src="plugin/customcontrols/customcontrols.js"></script>
+				<!--	{ src: 'plugin/anything/anything.js' } -->
+		<script src="plugin/anything/anything.js"></script>
+    <script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				controls: false,
+				customcontrols: {
+					slideNumberCSS : 'position: fixed; display: block; right: 90px; top: auto; left: auto; width: 50px; bottom: 10px; z-index: 31; font-family: Helvetica, sans-serif; font-size:  12px; line-height: 1; padding: 5px; text-align: center; border-radius: 10px; background-color: rgba(128,128,128,.5);',
+					controls: [ 
+						{ icon: '<i class="fa fa-caret-left"></i>', css: 'position: fixed; right: 60px; bottom: 10px; z-index: 30; font-size: 24px;', action: 'Reveal.prev(); return false;' }, 
+						{ icon: '<i class="fa fa-caret-right"></i>', css: 'position: fixed; right: 30px; bottom: 10px; z-index: 30; font-size: 24px;', action: 'Reveal.next(); return false;' }, 
+					]
+				},
+				slideNumber: 'h.v',
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath, RevealZoom] //, RevealCustomControls
+			});
+		</script>
+	</body>
+</html>
